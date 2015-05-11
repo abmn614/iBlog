@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     
-    <link rel="stylesheet" type="text/css" id="theme" href="{{$Think.config.Public}}css/theme-default.css"/>
-    <link rel="stylesheet" type="text/css" id="theme" href="{{$Think.config.Public}}css/style.css"/>
+    <link rel="stylesheet" type="text/css" id="theme" href="{ $Think.config.Public }css/theme-default.css"/>
+    <link rel="stylesheet" type="text/css" id="theme" href="{ $Think.config.Public }css/style.css"/>
 </head>
 <body>
 <div class="page-container">
@@ -86,11 +86,28 @@
                 <div class="col-md-12">
 
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
+                        <!-- <div class="panel-heading">
                             <h3 class="panel-title">标题</h3>
-                        </div>
-                        <div class="panel-body">
-                            内容
+                        </div> -->
+                        <div class="panel-body panel-body-table">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>用户名</th>
+                                    <th>邮箱</th>
+                                    <th>昵称</th>
+                                    <th>创建时间</th>
+                                </tr>
+                                <foreach name = "UserInfo" item = "user">
+                                <tr>
+                                    <td>{ $user.id }</td>
+                                    <td>{ $user.username }</td>
+                                    <td>{ $user.email }</td>
+                                    <td>{ $user.nickname }</td>
+                                    <td>{ $user.create_time }</td>
+                                </tr>
+                                </foreach>
+                            </table>
                         </div>
                     </div>
 
@@ -124,9 +141,9 @@
     
 <!-- 开始 脚本区域 -->
     <!-- 开始 基础插件 -->
-    <script type="text/javascript" src="{{$Think.config.Public}}js/plugins/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="{{$Think.config.Public}}js/plugins/jquery/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="{{$Think.config.Public}}js/plugins/bootstrap/bootstrap.min.js"></script>        
+    <script type="text/javascript" src="{ $Think.config.Public }js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="{ $Think.config.Public }js/plugins/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{ $Think.config.Public }js/plugins/bootstrap/bootstrap.min.js"></script>        
     <!-- 结束 基础插件 -->
 
     <!-- 开始 页面插件 -->
@@ -134,8 +151,8 @@
     <!-- 结束 页面插件 -->         
 
     <!-- 开始 模版插件 -->
-    <script type="text/javascript" src="{{$Think.config.Public}}js/plugins.js"></script>        
-    <script type="text/javascript" src="{{$Think.config.Public}}js/actions.js"></script>        
+    <script type="text/javascript" src="{ $Think.config.Public }js/plugins.js"></script>        
+    <script type="text/javascript" src="{ $Think.config.Public }js/actions.js"></script>        
     <!-- 结束 模版插件 -->
 <!-- 结束 脚本区域 -->         
 </body>
