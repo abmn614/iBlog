@@ -1,0 +1,46 @@
+<extend name="./Public/Admin/base.html" />
+
+<block name="page_tool">
+</block>
+
+<block name="content">
+    <div class="panel panel-primary">
+        <div class="panel-body panel-body-table">
+            <form action="{ :U('Post/cateAlterDo', '', '') }" method="post" class="form-horizontal">
+                <br>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">父级目录</label>
+                    <div class="col-md-3 col-xs-12">
+                        <select name="parent_id" class="form-control">
+                            <option value="0">顶级目录</option>
+                            <volist name="cates" id="cate">
+                                <option value="{ $cate.id }" <if condition="$cateCurrent['parent_id'] eq $cate['id']">selected = selected</if>>
+                                    <if condition="$cate['level'] neq 1">
+                                        &nbsp;&nbsp;|
+                                    </if>{ $cate.sign }{ $cate.name }
+                                </option>
+                            </volist>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">分类名称</label>
+                    <div class="col-md-3 col-xs-12">   
+                        <input type="text" name="name" value="{ $cateCurrent.name }" placeholder="请输入分类名称" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label"></label>
+                    <div class="col-md-3 col-xs-12">
+                    	<input type="hidden" name="id" value="{ $cateCurrent.id }">
+                        <input type="submit" value="确认修改" class="btn btn-primary">
+                    </div>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</block>
+
+<block name="js">
+</block>

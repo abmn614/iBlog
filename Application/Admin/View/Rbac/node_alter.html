@@ -1,0 +1,49 @@
+<extend name="./Public/Admin/base.html" />
+
+<block name="page_tool">
+</block>
+
+<block name="content">
+    <div class="panel panel-primary">
+        <div class="panel-body panel-body-table">
+            <form action="{ :U('Rbac/nodeAlterDo', '', '') }" method="post" class="form-horizontal">
+                <br>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">节点名称</label>
+                    <div class="col-md-3 col-xs-12">   
+                        <input type="text" name="name" value="{ $node.name }" placeholder="请输入节点名称" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">节点描述</label>
+                    <div class="col-md-3 col-xs-12">
+                        <input type="text" name="remark" value="{ $node.remark }" placeholder="请输入节点描述" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">是否开启</label>
+                    <div class="col-md-1">                                    
+                        <label class="check"><input type="radio" class="iradio" name="status" value="1" <if condition="$node['status'] eq 1">checked="checked"</if> /> 开启</label>
+                    </div>
+                    <div class="col-md-1">                                    
+                        <label class="check"><input type="radio" class="iradio" name="status" value="0" <if condition="$node['status'] eq 0">checked="checked"</if> /> 关闭</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label"></label>
+                    <div class="col-md-3 col-xs-12">
+                    	<input type="hidden" name="id" value="{ $node.id }">
+                        <input type="submit" value="确认修改" class="btn btn-primary">
+                    </div>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</block>
+
+<block name="page_plugins">
+	<script type='text/javascript' src='{ $Think.config.Public }js/plugins/icheck/icheck.min.js'></script>
+</block>
+<block name="js">
+</block>

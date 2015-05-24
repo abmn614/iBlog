@@ -1,0 +1,89 @@
+<extend name="./Public/Admin/base.html" />
+
+<block name="page_tool">
+</block>
+
+<block name="content">
+    <div class="panel panel-primary">
+        <div class="panel-body panel-body-table">
+            <form action="{ :U('Index/addDo') }" method="post" class="form-horizontal">
+                <br>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">用户名</label>
+                    <div class="col-md-3 col-xs-12">   
+                        <input type="text" name="username" placeholder="请输入用户名" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">密码</label>
+                    <div class="col-md-3 col-xs-12">
+                        <input type="password" name="password" placeholder="请输入密码" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">重复密码</label>
+                    <div class="col-md-3 col-xs-12">
+                        <input type="password" name="repassword" placeholder="请再次输入密码" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">邮箱</label>
+                    <div class="col-md-3 col-xs-12">
+                        <input type="text" name="email" placeholder="请输入邮箱" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">昵称</label>
+                    <div class="col-md-3 col-xs-12">
+                        <input type="text" name="nickname" placeholder="请设置昵称" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">角色</label>
+                    <div class="col-md-2 col-xs-12">
+                        <select name="role[]" class="form-control">
+                            <option value="0">请选择角色</option>
+                            <volist name="roles" id="role">
+                                <option value="{ $role.id }">{ $role.name }</option>
+                            </volist>
+                        </select>
+                    </div>
+                    <div class="col-md-1 col-xs-12">
+                        <button type="button" class="btn btn-primary" id="addRole">添加角色</button>
+                    </div>
+                </div>
+                <div class="form-group" id="submit">
+                    <label class="col-md-3 col-xs-12 control-label"></label>
+                    <div class="col-md-3 col-xs-12">
+                        <input type="submit" value="确认添加" class="btn btn-primary">
+                    </div>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</block>
+
+<block name="js">
+<script>
+    $("#addRole").click(function(){
+        var obj = $(this).parents(".form-group").clone();
+        obj.find("label").text('');
+        obj.find("#addRole").remove();
+        $("#submit").before(obj);
+    });
+    
+    $("form").submit(function(){
+        var email = $("input[name='email']").val();
+        if (email.indexOf('@') < 0) {
+            alert('邮箱格式不正确');
+            return false;
+        }
+        var role = $("select[name='role[]'").val();
+        if (role == 0) {
+            alter('请选择角色');
+            return false;
+        }
+    });
+</script>
+</block>

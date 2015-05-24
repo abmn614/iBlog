@@ -1,159 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>        
-    <title>后台首页</title>            
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    
-    <link rel="stylesheet" type="text/css" id="theme" href="{ $Think.config.Public }css/theme-default.css"/>
-    <link rel="stylesheet" type="text/css" id="theme" href="{ $Think.config.Public }css/style.css"/>
-</head>
-<body>
-<div class="page-container">
+<extend name="./Public/Admin/base.html" />
 
-    <!-- 开始 左侧边栏 -->
-    <div class="page-sidebar">
-        <!-- 开始 左侧导航 -->
-        <ul class="x-navigation">
-            <li class="xn-logo">
-                <a href="index.html">ATLANT</a>
-                <a href="#" class="x-navigation-control"></a>
-            </li>                                                                      
-            <li>
-                <a href="index.html"><span class="fa fa-desktop"></span> <span class="xn-text">主页</span></a>
-            </li>                    
-            <li class="xn-openable">
-                <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">产品分类</span></a>
-                <ul>
-                    <li><a href="pages-gallery.html"><span class="fa fa-image"></span> 分类列表</a></li>
-                    <li><a href="pages-profile.html"><span class="fa fa-user"></span> 添加分类</a></li>
-                    <li><a href="pages-profile.html"><span class="fa fa-user"></span> 修改分类</a></li>
-                </ul>
-            </li>
-        </ul>
-        <!-- 结束 左侧导航 -->
-    </div>
-    <!-- 结束 左侧边栏 -->
-    
-    <!-- 开始 右侧内容 -->
-    <div class="page-content">
-        
-        <div class="nav-right">
-        	<ul class="menu-right pull-left">
-	            <!-- 开始 左侧边栏开关按钮 -->
-	            <li class="xn-icon-button">
-	                <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
-	            </li>
-	            <!-- 结束 左侧边栏开关按钮 -->
-	        </ul>
-	        <ul class="menu-right pull-left">
-	        	<li class="active">
-	        		<a href=""><span class="fa fa-dedent"></span> 商品</a>
-	        	</li>
-	        	<li>
-	        		<a href=""><span class="glyphicon glyphicon-user"></span> 会员</a>
-	        	</li>
-	        </ul>
-        	<ul class="menu-right pull-right">
-	            <!-- 开始 退出登录 -->
-	            <li class="xn-icon-button pull-right">
-	                <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>                        
-	            </li> 
-	            <!-- 结束 退出登录 -->
-	        	<li class="pull-right">
-	        		<a href=""><span class="glyphicon glyphicon-user"></span> 查看网站</a>
-	        	</li>
-	        </ul>
-        </div>
-        
-        <!-- 开始 面包屑 -->
-        <ul class="breadcrumb">
-            <li><a href="#">首页</a></li>                    
-            <li class="active"> 当前</li>
-        </ul>
-        <!-- 结束 面包屑 -->                
-        
-        <div class="page-title">                    
-            <h2><span class="fa fa-arrow-circle-o-left"></span> 页面标题</h2>
-        </div>                   
-        
-        <!-- 开始 主内容区域 -->
-        <div class="page-content-wrap">
-        
-            <div class="row">
-                <div class="col-md-12">
+<block name="page_tool">
+    <a href="{ :U('Index/add') }" class="btn btn-primary">添加管理员</a>
+</block>
 
-                    <div class="panel panel-primary">
-                        <!-- <div class="panel-heading">
-                            <h3 class="panel-title">标题</h3>
-                        </div> -->
-                        <div class="panel-body panel-body-table">
-                            <table class="table table-striped">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>用户名</th>
-                                    <th>邮箱</th>
-                                    <th>昵称</th>
-                                    <th>创建时间</th>
-                                </tr>
-                                <foreach name = "UserInfo" item = "user">
-                                <tr>
-                                    <td>{ $user.id }</td>
-                                    <td>{ $user.username }</td>
-                                    <td>{ $user.email }</td>
-                                    <td>{ $user.nickname }</td>
-                                    <td>{ $user.create_time }</td>
-                                </tr>
-                                </foreach>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        
-        </div>
-        <!-- 结束 主内容区域 -->                
-    </div>            
-    <!-- 结束 右侧内容 } -->
-</div>
-
-    <!-- 开始 退出登录对话框 -->
-    <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
-        <div class="mb-container">
-            <div class="mb-middle">
-                <div class="mb-title"><span class="fa fa-sign-out"></span> 退出 <strong>登录</strong> ?</div>
-                <div class="mb-content">
-                    <p>确定要退出登录吗？</p>                    
-                </div>
-                <div class="mb-footer">
-                    <div class="pull-right">
-                        <a href="pages-login.html" class="btn btn-success btn-lg">确定</a>
-                        <button class="btn btn-default btn-lg mb-control-close">取消</button>
-                    </div>
-                </div>
-            </div>
+<block name="content">
+    <div class="panel panel-primary">
+        <div class="panel-body panel-body-table">
+            <table class="table datatable table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>邮箱</th>
+                        <th>昵称</th>
+                        <th>角色</th>
+                        <th>状态</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <volist name="userInfo" id="user">
+                    <tr>
+                        <td>{ $user.id }</td>
+                        <td>{ $user.username }</td>
+                        <td>{ $user.email }</td>
+                        <td>{ $user.nickname }</td>
+                        <td>
+                            <foreach name="user.role" item="role">
+                                <span class="label label-success">{ $role.name }</span>&nbsp;
+                            </foreach>
+                        </td>
+                        <td>
+                            <if condition = "$user['status'] eq 0">正常
+                            <elseif condition = "$user['status'] eq 1" /><span class="text-warning">已锁定</span>
+                            <else />{ $user.status }
+                            </if>
+                        </td>
+                        <td>{ $user.create_time }</td>
+                        <td>
+                            <a href="{ :U('Index/alter', ['id' => $user['id']]) }" class="text-info" title="修改"><i class="glyphicon glyphicon-edit"></i></a> 
+                            <if condition = "$user['status'] eq 0">
+                                <a href="{ :U('Index/lock', ['id' => $user['id'], 'status' => 1]) }" class="text-warning lock" title="锁定"><i class="fa fa-lock"></i></a>
+                            <elseif condition="$user['status'] eq 1" />
+                                <a href="{ :U('Index/lockDo', ['id' => $user['id'], 'status' => 0]) }" class="text-warning lock" title="解锁"><i class="fa fa-unlock"></i></a>
+                            </if>
+                            <a href="{ :U('Rbac/userRoleAlter', ['id' => $user['id']]) }" class="text-success" title="分配角色"><i class="fa fa-cog"></i></a>
+                        </td>
+                    </tr>
+                    </volist>
+                </tbody>
+            </table>
         </div>
     </div>
-    <!-- 结束 退出登录对话框-->
-    
-<!-- 开始 脚本区域 -->
-    <!-- 开始 基础插件 -->
-    <script type="text/javascript" src="{ $Think.config.Public }js/plugins/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="{ $Think.config.Public }js/plugins/jquery/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="{ $Think.config.Public }js/plugins/bootstrap/bootstrap.min.js"></script>        
-    <!-- 结束 基础插件 -->
+</block>
 
-    <!-- 开始 页面插件 -->
+<block name="js">
+    <script>
+    $(".del, .lock").click(function(){
+        if (!confirm('确认要进行这个操作吗？')) {
+            return false;
+        }
+    });
+    </script>
+</block>
 
-    <!-- 结束 页面插件 -->         
+<block name="page_plugins">
+    <script type="text/javascript" src="{ $Think.config.Public }js/plugins/datatables/jquery.dataTables.min.js"></script>    
+</block>
 
-    <!-- 开始 模版插件 -->
-    <script type="text/javascript" src="{ $Think.config.Public }js/plugins.js"></script>        
-    <script type="text/javascript" src="{ $Think.config.Public }js/actions.js"></script>        
-    <!-- 结束 模版插件 -->
-<!-- 结束 脚本区域 -->         
-</body>
-</html>

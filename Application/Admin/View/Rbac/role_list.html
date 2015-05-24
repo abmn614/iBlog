@@ -1,0 +1,69 @@
+<extend name="./Public/Admin/base.html" />
+
+<block name="page_tool">
+    <a href="{ :U('Rbac/roleAdd') }" class="btn btn-primary">添加角色</a>
+</block>
+
+<block name="content">
+    <div class="panel panel-primary">
+        <div class="panel-body panel-body-table">
+            <table class="table datatable table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>角色名称</th>
+                        <th>角色描述</th>
+                        <th>开启状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <volist name="roles" id="role">
+                    <tr>
+                        <td>{ $role.id }</td>
+                        <td>{ $role.name }</td>
+                        <td>{ $role.remark }</td>
+                        <td>
+                        	<if condition="$role['status'] eq 1">
+                        		开启
+                        	<else />
+                        		<span class="text-danger">未开启</span>
+                        	</if>
+                        </td>
+                        <td>
+                            <a href="{ :U('Rbac/roleAlter', ['id' => $role['id']]) }" class="text-info" title="修改"><i class="glyphicon glyphicon-edit"></i></a> 
+                            <a href="{ :U('Rbac/nodeList', ['id' => $role['id']]) }" class="text-warning" title="配置节点"><i class="fa fa-cog"></i></a> 
+                            <a href="{ :U('Rbac/roleBanDo', ['id' => $role['id'], 'status' => intval(!$role['status'])]) }" class="del" title="禁止该角色">
+                            	<if condition="$role['status'] eq 1">
+                            		<i class="fa fa-ban text-danger"></i>
+                            	<elseif condition="$role['status'] eq 0" />
+                            		<i class="fa fa-check-circle-o text-success"></i>
+                            	<else />
+                            		{ $role.status }
+                            	</if>
+                            </a> 
+                        </td>
+                    </tr>
+                    </volist>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</block>
+
+<block name="js">
+    <script>
+    $(".del, .lock").click(function(){
+        if (confirm('确认要进行这个操作吗？')) {
+            location.href = this.href;
+        }else{
+            return false;
+        }
+    });
+    </script>
+</block>
+
+<block name="page_plugins">
+    <script type="text/javascript" src="{ $Think.config.Public }js/plugins/datatables/jquery.dataTables.min.js"></script>    
+</block>
+

@@ -1,0 +1,106 @@
+<extend name="./Public/Admin/base.html" />
+
+<block name="page_tool">
+    <a href="{ :U('Rbac/nodeAdd') }" class="btn btn-primary">添加应用</a>
+</block>
+
+<block name="content">
+    <form action="{ :U('Rbac/accessDo') }" method="post">
+        <foreach name="nodes" item="app">
+            <div class="panel panel-primary">
+                <div class="panel-heading ui-draggable-handle">
+                    <h3 class="panel-title">
+                        <label class="check app"><input type="checkbox" name="access[]" value="{ $app.id }_1" <if condition="$app['access'] eq 1">checked="checked"</if> >{ $app.remark }</label>
+                        <a href="{ :U('Rbac/nodeAdd', ['pid' => $app['id'], 'level' => 2]) }" class="text-success" title="添加节点"><i class="glyphicon glyphicon-plus"></i></a> 
+                        <a href="{ :U('Rbac/nodeAlter', ['id' => $app['id']]) }" class="text-info" title="修改节点"><i class="glyphicon glyphicon-edit"></i></a> 
+                        <a href="{ :U('Rbac/nodeBanDo', ['id' => $app['id'], 'status' => intval(!$app['status'])]) }" class="del" title="禁止或解禁该节点">
+                            <if condition="$app['status'] eq 1">
+                                <i class="fa fa-ban text-warning"></i>
+                            <elseif condition="$app['status'] eq 0" />
+                                <i class="fa fa-check-circle-o text-success"></i>
+                            <else />
+                                { $app.status }
+                            </if>
+                        </a> 
+                    </h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>                                
+                </div>
+                <foreach name="app.child" item="controller">
+                <div class="panel-body">
+                    <div class="messages">
+                        <div class="item item-visible">
+                            <div class="text">
+                                <div class="heading">
+                                    <h5>
+                                        <label class="check controller"><input type="checkbox" name="access[]" value="{ $controller.id }_2" <if condition="$controller['access'] eq 1">checked="checked"</if> >{ $controller.remark }</label>
+                                        <a href="{ :U('Rbac/nodeAdd', ['pid' => $controller['id'], 'level' => 3]) }" class="text-success" title="添加节点"><i class="glyphicon glyphicon-plus"></i></a> 
+                                        <a href="{ :U('Rbac/nodeAlter', ['id' => $controller['id']]) }" class="text-info" title="修改节点"><i class="glyphicon glyphicon-edit"></i></a> 
+                                        <a href="{ :U('Rbac/nodeBanDo', ['id' => $controller['id'], 'status' => intval(!$controller['status'])]) }" class="del" title="禁止或解禁该节点">
+                                            <if condition="$controller['status'] eq 1">
+                                                <i class="fa fa-ban text-warning"></i>
+                                            <elseif condition="$controller['status'] eq 0" />
+                                                <i class="fa fa-check-circle-o text-success"></i>
+                                            <else />
+                                                { $controller.status }
+                                            </if>
+                                        </a> 
+                                    </h5>
+                                </div>
+                                <foreach name="controller.child" item="action">
+                                    <span style="margin-right: 20px;">
+                                       <label class="check"><input type="checkbox" name="access[]" value="{ $action.id }_3" <if condition="$action['access'] eq 1">checked="checked"</if> > { $action.remark }</label>
+                                        <a href="{ :U('Rbac/nodeAlter', ['id' => $action['id']]) }" class="text-info" title="修改节点"><i class="glyphicon glyphicon-edit"></i></a> 
+                                        <a href="{ :U('Rbac/nodeBanDo', ['id' => $action['id'], 'status' => intval(!$action['status'])]) }" class="del" title="禁止或解禁该节点">
+                                            <if condition="$action['status'] eq 1">
+                                                <i class="fa fa-ban text-warning"></i>
+                                            <elseif condition="$action['status'] eq 0" />
+                                                <i class="fa fa-check-circle-o text-success"></i>
+                                            <else />
+                                                { $action.status }
+                                            </if>
+                                        </a>
+                                        <a href="{ :U('Rbac/nodeDelDo', ['id' => $action['id']]) }" title="删除"><i class="fa fa-trash-o text-danger"></i></a>
+                                    </span>
+                                </foreach>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </foreach>
+            </div>
+        </foreach>
+        <input type="hidden" name="role_id" value="{ $role_id }">
+        <input type="submit" value="确认分配" class="btn btn-primary">
+    </form>
+</block>
+
+<block name="js">
+    <script>
+        $(".del, .lock").click(function(){
+            if (confirm('确认要进行这个操作吗？')) {
+                location.href = this.href;
+            }else{
+                return false;
+            }
+        });
+
+        $('.app').on('ifChecked', function(){
+            $(this).parents(".panel").find("input").iCheck('check');
+        });
+        $('.app').on('ifUnchecked', function(){
+            $(this).parents(".panel").find("input").iCheck('uncheck');
+        });
+        $('.controller').on('ifChecked', function(){
+            $(this).parents(".messages").find("input").iCheck('check');
+        });
+        $('.controller').on('ifUnchecked', function(){
+            $(this).parents(".messages").find("input").iCheck('uncheck');
+        });
+    </script>
+</block>
+
+<block name="page_plugins">
+</block>
+

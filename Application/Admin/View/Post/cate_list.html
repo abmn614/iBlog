@@ -1,0 +1,57 @@
+<extend name="./Public/Admin/base.html" />
+
+<block name="page_tool">
+</block>
+
+<block name="content">
+    <div class="panel panel-primary">
+        <div class="panel-body panel-body-table">
+            <form action="{ :U('Post/cateSort', '', '') }" method="post">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>排序</th>
+                            <th>分类名</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            <volist name="cates" id="cate">
+                            <tr>
+                                <td class="col-md-1">
+                                    <input type="text" name="{ $cate.id }" value="{ $cate.sort }" class="form-control">
+                                </td>
+                                <td>
+                                    <if condition="$cate['level'] neq 1">&nbsp;&nbsp;|</if>
+                                    { $cate.sign }{ $cate.name }
+                                </td>
+                                <td>
+                                    <a href="{ :U('Post/cateAdd', ['id' => $cate['id']]) }" class="text-success"><i class="fa fa-plus"></i></a>
+                                    <a href="{ :U('Post/cateAlter', ['id' => $cate['id']]) }" class="text-info" title="修改"><i class="glyphicon glyphicon-edit"></i></a> 
+                                    <a href="{ :U('Post/cateDelDo', ['id' => $cate['id']]) }" class="del text-danger" title="删除"><i class="glyphicon glyphicon-trash"></i></a> 
+                                </td>
+                            </tr>
+                            </volist>
+                        </tbody>
+                </table>
+                <input type="submit" value="提交排序" class="btn btn-primary" style="margin: 10px;">
+            </form>
+        </div>
+    </div>
+</block>
+
+<block name="js">
+    <script>
+    $(".del, .lock").click(function(){
+        if (confirm('确认要进行这个操作吗？')) {
+            location.href = this.href;
+        }else{
+            return false;
+        }
+    });
+    </script>
+</block>
+
+<block name="page_plugins">
+    <script type="text/javascript" src="{ $Think.config.Public }js/plugins/datatables/jquery.dataTables.min.js"></script>    
+</block>

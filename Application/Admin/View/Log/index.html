@@ -1,0 +1,50 @@
+<extend name="./Public/Admin/base.html" />
+
+<block name="page_tool">
+</block>
+
+<block name="content">
+    <div class="panel panel-primary">
+        <div class="panel-body panel-body-table">
+            <table class="table datatable table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>行为</th>
+                        <th>操作者</th>
+                        <th style="width: 600px;">内容</th>
+                        <th style="width: 100px;">影响行数</th>
+                        <th>时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <volist name="logs" id="log">
+                    <tr>
+                        <td>{ $log.id }</td>
+                        <td>{ $log.op }</td>
+                        <td>{ $log.username }</td>
+                        <td>{ $log.data }</td>
+                        <td>{ $log.affected_rows }</td>
+                        <td>{ $log.create_time }</td>
+                    </tr>
+                    </volist>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</block>
+
+
+<block name="page_plugins">
+    <script type="text/javascript" src="{ $Think.config.Public }js/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.datatable').dataTable( {
+				"aaSorting": [[ 5, "desc" ]],
+			} );
+		} );
+	</script>
+</block>
+
+<block name="js">
+</block>

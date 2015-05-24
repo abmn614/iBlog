@@ -1,0 +1,41 @@
+<extend name="./Public/Admin/base.html" />
+
+<block name="page_tool">
+</block>
+
+<block name="content">
+    <div class="panel panel-primary">
+        <div class="panel-body panel-body-table">
+            <form action="{ :U('Rbac/userRoleAlterDo', '', '') }" method="post" class="form-horizontal">
+                <br>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">用户名</label>
+                    <div class="col-md-3 col-xs-12">   
+                        <input type="text" name="name" value="{ $userInfo.username }" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">角色</label>
+                    <div class="col-md-3 col-xs-12">
+                        <foreach name="roles" item="role">
+                            <label class="check" style="margin-right: 20px;"><input type="checkbox" name="role[]" value="{ $role.id }" <if condition="in_array($role['id'], $userInfo['role_id'])">checked="checked"</if>>{ $role.name }</label>
+                        </foreach>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label"></label>
+                    <div class="col-md-3 col-xs-12">
+                        <input type="hidden" name="id" value="{ $userInfo.id }">
+                        <input type="submit" value="确认修改" class="btn btn-primary">
+                    </div>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</block>
+
+<block name="page_plugins">
+</block>
+<block name="js">
+</block>
